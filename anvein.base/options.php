@@ -16,11 +16,11 @@ Loader::includeModule('anvein.base');
 // формирование страницы настроек
 $optPage = new Page('anvein.base');
 
-$tab1 = new Tab('short title', 'main title');
-$tab1->addField(new Separator('ФИО ru'));
-$tab1->addField(new InputText('name', 'Имя', false, 25));
-$tab1->addField(new Textarea('text', 'Какой-то текст', true));
-$tab1->addField(new HintBlock('Ключ для использования сервиса Яндекс.Перевода можно получить, посредством '));
+$tab1 = new Tab('Надпись на ярлычке таба', 'Заголовок на табе');
+$tab1->addField(new Separator('Надпись на разделителе секций таба'));
+$tab1->addField(new InputText('name_of_sitteng', 'Надпись поля', false, 25));
+$tab1->addField(new Textarea('textarea_setting', 'Поле типа textarea', true));
+$tab1->addField(new HintBlock('Подсказка с текстом'));
 $tab1->addField(new Select(
     'sex',
     'Пол', [
@@ -41,39 +41,32 @@ $tab1->addField(new Select(
 );
 
 $tab1->addField(new SelectMultiply(
-    'sex2',
-    'Пол', [
+    'sport',
+    'Виды спорта', [
     [
         'value' => '',
         'label' => '',
     ],
     [
-        'value' => 'man',
-        'label' => 'М',
+        'value' => 'footboal',
+        'label' => 'Футбол',
     ],
     [
-        'value' => 'woman',
-        'label' => 'Ж',
+        'value' => 'basket',
+        'label' => 'Баскетбол',
     ],
 ],
     3));
 
 
-$tab1->addField(new Checkbox('is_people', 'Ты человек?'));
-$tab1->addField(new Checkbox('is_people2', 'Ты человек2?'));
-$tab1->addField(new Separator('ФИО2'));
-$tab1->addField(new InputText('name2', 'Имя'));
+$tab1->addField(new Checkbox('is_people', 'Поле типа checkbox'));
 $optPage->addTab($tab1);
 
 $tab2 = new Tab('tab2', 'tab2_long');
-$tab2->addField(new Separator('Фамилия'));
-$tab2->addField(new InputText('name3', 'Фамилия'));
+$tab2->addField(new Separator('ФИО'));
+$tab2->addField(new InputText('name', 'Имя'));
+$tab2->addField(new InputText('surname', 'Фамилия'));
 $optPage->addTab($tab2);
-
-$tab3 = new Tab('tab3', 'tab3_long');
-$tab3->addField(new Separator('Фамилия'));
-$tab3->addField(new InputText('name4', 'Фамилия'));
-$optPage->addTab($tab3);
 
 // служебная часть
 $optPage->run();

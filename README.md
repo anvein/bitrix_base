@@ -29,18 +29,17 @@ use Anvein\Base\OptionsPage\Fields\HintBlock;
 Loader::includeModule('anvein.base'); // подгрузка модуля
 
 // формирование страницы настроек
-$optPage = new Page('anvein.base'); // создание объекта страницы настроек
+$optPage = new Page('your.module'); // создание объекта страницы настроек
 
-$tab1 = new Tab('short title', 'main title'); // создание таба
+$tab1 = new Tab('Надпись на ярлычке таба', 'Заголовок на табе'); // создание таба
 
 // добавить необходимые поля (они находятся в пространстве имен Anvein\Base\OptionsPage\Fields)
-$tab1->addField(new Separator('ФИО ru'));
-$tab1->addField(new InputText('name', 'Имя', false, 25));
-$tab1->addField(new Textarea('text', 'Какой-то текст', true));
-$tab1->addField(new HintBlock('Ключ для использования сервиса Яндекс.Перевода можно получить, посредством '));
+$tab1->addField(new Separator('Надпись на разделителе секций таба'));
+$tab1->addField(new InputText('name_of_sitteng', 'Надпись поля', false, 25));
+$tab1->addField(new Textarea('textarea_setting', 'Поле типа textarea', true));
+$tab1->addField(new HintBlock('Подсказка с текстом'));
 
 $optPage->addTab($tab1); // добавить таба на страницу
 
 $optPage->run(); // запустить построение страницы 
 ```
-
