@@ -1,0 +1,30 @@
+{
+    "name": "anvein/bitrix_base",
+    "description": "Модуль для Битрикса с часто используемым функционалом: класс-обертка логгер, \"красивый\" построитель страниц настроек модуля и компонент формы (в будущем).",
+    "type": "library",
+    "keywords": ["php", "bitrix"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nokhrin Vitaly"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+    	"php": ">=7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "anvein\\bitrix_base\\installer\\": "installer/"
+        }
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "<2.6.0"
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/anvein/bitrix_base"
+        }
+    ]
+}
