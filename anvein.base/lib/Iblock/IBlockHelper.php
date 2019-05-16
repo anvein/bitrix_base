@@ -14,6 +14,8 @@ class IBlockHelper
      * @param array $prop - массив свойства типа привязка к элементу (E)
      *
      * @return array - если элемент найден, то возвращается массив с этим элементом, иначе пустой массив
+     *
+     * @throws Exception
      */
     public static function getEPropertyValue(array $prop = []): array
     {
@@ -51,6 +53,8 @@ class IBlockHelper
      * @param array $prop - массив свойства типа привязка к элементу (E)
      *
      * @return array - если элементы найдены, то возвращается массив с этими элементами, иначе пустой массив
+     *
+     * @throws Exception
      */
     public static function getMultiplyEPropertyValue(array $prop = [])
     {
@@ -88,6 +92,8 @@ class IBlockHelper
      * @param array $prop - массив свойства
      *
      * @return string - возвр значение PREVIEW_TEXT, если он задан, иначе null
+     *
+     * @throws Exception
      */
     public static function getPrevTextFromEProp(array $prop = []): string
     {
@@ -102,6 +108,8 @@ class IBlockHelper
      * @param array $prop - массив свойства
      *
      * @return string - возвр значение DETAIL_TEXT, если он задан, иначе null
+     *
+     * @throws Exception
      */
     public static function getDetailTextFromEProp(array $prop = []): string
     {
@@ -116,6 +124,8 @@ class IBlockHelper
      * @param array $prop - массив свойства
      *
      * @return array - возвр массив значений PREVIEW_TEXT, если он задан, иначе пустой массив
+     *
+     * @throws Exception
      */
     public static function getPrevTextFromMultiplyEProp(array $prop = []): array
     {

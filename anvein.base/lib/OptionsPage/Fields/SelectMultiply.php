@@ -4,6 +4,7 @@ namespace Anvein\Base\OptionsPage\Fields;
 
 use Anvein\Base\OptionsPage\Page;
 use Bitrix\Main\Config\Option;
+use Exception;
 
 /**
  * Поле настройки типа multiply select.
@@ -11,31 +12,29 @@ use Bitrix\Main\Config\Option;
 class SelectMultiply extends Select
 {
     /**
-     * св-во переопределено, чтобы PhpStorm не ругался на тип (тут это array, а не string)
+     * Св-во переопределено, чтобы PhpStorm не ругался на тип (тут это array, а не string).
      *
      * @var array
      */
     protected $value = [];
 
-
     /**
-     * Select constructor.
+     * SelectMultiply constructor.
      *
-     * @param string      $name
-     * @param string      $label
-     * @param array       $data         - массив значений для selecta (каждый элемент должен содержать: value и label)
-     * @param int         $rows
+     * @param string $name
+     * @param string $label
+     * @param array  $data
+     * @param bool   $required
+     * @param int    $rows
      */
     public function __construct(
         string $name,
         string $label,
         array $data,
+        bool $required = false,
         int $rows = 1
     ) {
-        $this->name = $name;
-        $this->label = $label;
-        $this->setData($data);
-//        $this->required = $required; // не реализовано
+        parent::__construct($name, $label, $data, false);
         $this->size = $rows;
     }
 

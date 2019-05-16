@@ -13,7 +13,7 @@ use Anvein\Base\OptionsPage\Fields\HintBlock;
 
 Loader::includeModule('anvein.base');
 
-// формирование страницы настроек
+// формирование страницы настроек (пример)
 $optPage = new Page('anvein.base');
 
 $tab1 = new Tab('Надпись на ярлычке таба', 'Заголовок на табе');
@@ -56,7 +56,9 @@ $tab1->addField(new SelectMultiply(
         'label' => 'Баскетбол',
     ],
 ],
-    3));
+false,
+3)
+);
 
 
 $tab1->addField(new Checkbox('is_people', 'Поле типа checkbox'));

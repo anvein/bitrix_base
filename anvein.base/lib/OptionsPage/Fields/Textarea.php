@@ -15,11 +15,11 @@ class Textarea extends BaseField
     /**
      * Textarea constructor.
      *
-     * @param string      $name
-     * @param string      $label
-     * @param bool        $required
-     * @param int         $width
-     * @param int         $height
+     * @param string $name
+     * @param string $label
+     * @param bool   $required
+     * @param int    $width
+     * @param int    $height
      */
     public function __construct(string $name, string $label, bool $required = false, int $width = 25, int $height = 5)
     {

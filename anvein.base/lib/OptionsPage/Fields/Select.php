@@ -21,10 +21,10 @@ class Select extends BaseField
     /**
      * Select constructor.
      *
-     * @param string      $name
-     * @param string      $label
-     * @param array       $data         - массив значений для selecta (каждый элемент должен содержать: value и label)
-     * @param bool        $required
+     * @param string $name
+     * @param string $label
+     * @param array  $data     - массив значений для selecta (каждый элемент должен содержать: value и label)
+     * @param bool   $required
      */
     public function __construct(
         string $name,
@@ -90,6 +90,7 @@ class Select extends BaseField
      * @param array $data
      *
      * @return Select
+     *
      * @throws Exception
      */
     public function setData(array $data): self
@@ -108,5 +109,4 @@ class Select extends BaseField
 
         return $this;
     }
-
 }

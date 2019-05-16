@@ -5,41 +5,61 @@ namespace Anvein\Base\OptionsPage\Fields;
 abstract class BaseField
 {
     /**
-     * Флаг, который надо задавать true, для "информационных" полей (которые не хрянят значение в бд и т.п.)
+     * Флаг, который надо задавать true, для "информационных" полей (которые не хрянят значение в бд и т.п.).
      *
      * @var bool
      */
     protected $isInfo = false;
 
+    /**
+     * name поля.
+     *
+     * @var string
+     */
     protected $name = '';
 
+    /**
+     * Размер поля.
+     *
+     * @var int
+     */
     protected $size = 25;
 
+    /**
+     * label поля (надпись).
+     *
+     * @var string
+     */
     protected $label = '';
 
+    /**
+     * Обязательность поля.
+     *
+     * @var bool
+     */
     protected $required = false;
 
     /**
-     * Значение поля (как в POST)
+     * Значение поля (как в POST).
      *
      * @var string
      */
     protected $value = '';
 
     /**
-     * Метод генерирующий html поля.
+     * Генерирует html поля и выводит его.
      */
     abstract public function view();
 
     /**
-     * Метод сохраняющий значение поля.
-     * Тут должно быть реализовано преобразование значения из POST в db. ('on' -> 'Y')
+     * Сохраняет значение поля.
+     * Тут должно быть реализовано преобразование значения из POST в db. (пример: 'on' -> 'Y').
      */
     abstract public function saveToDb();
 
     /**
-     * Метод вытаскивающий значение поля из бд.
-     * Тут должно быть реализовано преобразование из db в POST. ('Y' -> 'on'; 'N' -> '')
+     * Вытаскивает значение поля из бд.
+     * Тут должно быть реализовано преобразование из db в POST. (пример: 'Y' -> 'on'; 'N' -> '').
      *
      * @return mixed
      */
@@ -98,11 +118,11 @@ abstract class BaseField
     }
 
     /**
-     * Оборачивает label в тег <b>, если поле обязательно для заполенния
+     * Оборачивает label в тег <b>, если поле обязательно для заполенния и возвращает его html.
      *
      * @return string
      */
-    protected function printLabelHtml()
+    protected function printLabelHtml(): string
     {
         $labelText = $this->label;
 

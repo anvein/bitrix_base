@@ -48,6 +48,7 @@ class Tab
     public function addField(BaseField $field): self
     {
         $this->fields[] = $field;
+
         return $this;
     }
 
@@ -143,7 +144,7 @@ class Tab
     }
 
     /**
-     * Возвращает name всех полей таба
+     * Возвращает name всех полей таба.
      *
      * @return array
      */

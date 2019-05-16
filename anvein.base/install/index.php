@@ -10,6 +10,13 @@ class anvein_base extends CModule
     private $PARTNER_DIR;
 
     /**
+     * Путь к папке сайта (web).
+     *
+     * @var string
+     */
+    protected $documentRoot;
+
+    /**
      * Точка входа.
      */
     public function __construct()
@@ -29,6 +36,8 @@ class anvein_base extends CModule
 
         $this->PARTNER_NAME = Loc::getMessage('anvein_base_partner_name');
         $this->PARTNER_URI = '/';
+
+        $this->documentRoot = realpath(__DIR__ . '/../../../..');
     }
 
     /**
@@ -78,7 +87,7 @@ class anvein_base extends CModule
                     }
 
                     CopyDirFiles("{$path}/{$item}",
-                        "{$_SERVER['DOCUMENT_ROOT']}/local/components/{$this->PARTNER_DIR}/{$item}", $rewrite = true,
+                        "{$this->documentRoot}/local/components/{$this->PARTNER_DIR}/{$item}", $rewrite = true,
                         $recursive = true);
                 }
                 closedir($dir);
@@ -120,12 +129,12 @@ class anvein_base extends CModule
                     }
 
                     $compInBitrix = "/bitrix/components/{$this->PARTNER_DIR}/{$item}";
-                    if (file_exists($_SERVER['DOCUMENT_ROOT'] . $compInBitrix)) {
+                    if (file_exists($this->documentRoot . '/' . $compInBitrix)) {
                         DeleteDirFilesEx($compInBitrix);
                     }
 
                     $compInLocal = "/local/components/{$this->PARTNER_DIR}/{$item}";
-                    if (file_exists($_SERVER['DOCUMENT_ROOT'] . $compInLocal)) {
+                    if (file_exists($this->documentRoot . '/' . $compInLocal)) {
                         DeleteDirFilesEx($compInLocal);
                     }
                 }
@@ -142,7 +151,7 @@ class anvein_base extends CModule
                         continue;
                     }
 
-                    $pathFile = "{$_SERVER['DOCUMENT_ROOT']}/bitrix/admin/{$item}";
+                    $pathFile = "{$this->documentRoot}/bitrix/admin/{$item}";
                     if (file_exists($pathFile)) {
                         unlink($pathFile);
                     }

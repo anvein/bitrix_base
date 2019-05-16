@@ -15,8 +15,8 @@ class InputText extends BaseField
      *
      * @param string $name
      * @param string $label
-     * @param bool $required
-     * @param int $size
+     * @param bool   $required
+     * @param int    $size
      */
     public function __construct(
         string $name,
@@ -65,5 +65,4 @@ class InputText extends BaseField
     {
         return Option::get(Page::$moduleId, $this->name);
     }
-
 }

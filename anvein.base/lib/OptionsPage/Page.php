@@ -47,39 +47,63 @@ class Page
 
     /**
      * Метод запускающий генерацию страницы и выполняющий все служебные функции.
+     * "Мегабыдлокодный экшен".
      */
-    public function run()
+    final public function run(): void
     {
-        $this->checkUniqueNamesOptions();
+        try {
+            $this->checkUniqueNamesOptions();
 
-        $request = Application::getInstance()->getContext()->getRequest();
-        $post = $request->getPostList()->toArray();
+            $request = Application::getInstance()->getContext()->getRequest();
+            $post = $request->getPostList()->toArray();
 
-        $oCAdminMessage = new CAdminMessage;
-        if ((!empty($post['save']) || !empty($post['apply']) || !empty($post['restore'])) && $request->isPost() && check_bitrix_sessid()) {
-            $this->fillFieldsValuesFromPost();
+            if ((!empty($post['save']) || !empty($post['apply']) || !empty($post['restore'])) && $request->isPost() && check_bitrix_sessid()) {
+                $this->fillFieldsValuesFromPost();
 
-            if ($this->isValidFieldsValues()) {
-                $this->save();
-                $this->fillFieldsValuesFromDb();
+                if (!$this->isValidFieldsValues()) {
+                    throw new Exception($this->getErrorsHtmlForNotice());
+                } else {
+                    $this->save();
+                    $this->fillFieldsValuesFromDb();
 
-                $oCAdminMessage->ShowMessage([
-                    'MESSAGE' => Loc::getMessage('anvein_base_options_save_success'),
-                    'TYPE' => 'OK',
-                ]);
+                    $this->showSuccessSaveMessage();
+                }
             } else {
-                $oCAdminMessage->ShowMessage([
-                    'MESSAGE' => $this->getErrorsHtmlForNotice(),
-                    'TYPE' => 'ERROR',
-                ]);
+                $this->fillFieldsValuesFromDb();
             }
-        } else {
-            $this->fillFieldsValuesFromDb();
+        } catch (Exception $e) {
+            $this->showErrorMessage($e->getMessage());
         }
 
         $this->view();
+    }
 
-        return;
+    /**
+     * "Выводит" сообщение об успешном сохранении настроек страницы модуля.
+     */
+    protected function showSuccessSaveMessage(): void
+    {
+        $oCAdminMessage = new CAdminMessage('');
+
+        $oCAdminMessage->ShowMessage([
+            'MESSAGE' => Loc::getMessage('anvein_base_options_save_success'),
+            'TYPE' => 'OK',
+        ]);
+    }
+
+    /**
+     * Выводит сообщение об ошибке.
+     *
+     * @param string $message
+     */
+    protected function showErrorMessage(string $message): void
+    {
+        $oCAdminMessage = new CAdminMessage('');
+
+        $oCAdminMessage->ShowMessage([
+            'MESSAGE' => $message,
+            'TYPE' => 'ERROR',
+        ]);
     }
 
     /**
@@ -117,7 +141,7 @@ class Page
     }
 
     /**
-     * Сохраняет значения полей.
+     * Сохраняет значения полей в БД (в битриксовую таблицу с настройками модулей).
      */
     protected function save()
     {
@@ -131,7 +155,7 @@ class Page
     /**
      * Генерирует html-страницы настроек.
      */
-    protected function view()
+    protected function view(): void
     {
         $tabControl = new CAdminTabControl(
             'optionsTabControl',
@@ -156,12 +180,10 @@ class Page
         $tabControl->buttons([]);
         $tabControl->end();
         echo '</form>';
-
-        return;
     }
 
     /**
-     * Валидирует поля
+     * Валидирует поля.
      *
      * @return bool - true, если всё ок, иначе false
      */
@@ -198,7 +220,7 @@ class Page
     }
 
     /**
-     * Генерирует html для нотайса ошибок
+     * Генерирует html для сообщения об ошибке.
      *
      * @return string
      */
@@ -212,11 +234,11 @@ class Page
     }
 
     /**
-     * Проверяет поля на повторение name
+     * Проверяет name полей на уникальность.
      *
      * @throws Exception
      */
-    protected function checkUniqueNamesOptions()
+    protected function checkUniqueNamesOptions(): void
     {
         $names = [];
         foreach ($this->tabs as $tab) {
@@ -231,5 +253,4 @@ class Page
             }
         }
     }
-
 }

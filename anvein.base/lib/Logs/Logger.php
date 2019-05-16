@@ -35,6 +35,7 @@ class Logger
      * Logger constructor.
      *
      * @param string $typeId
+     * @param string $filePath
      */
     public function __construct(string $typeId = '', string $filePath = '')
     {
@@ -73,7 +74,7 @@ class Logger
      * @param string $message  - сообщение
      * @param int    $logLevel - уровень критичности: 0 - информационный, 1 - ошибка
      */
-    public function addLog(string $message = '', int $logLevel = 0)
+    public function addLog(string $message = '', int $logLevel = 0): void
     {
         $severity = '';
         if ($logLevel === self::LOG_LEVEL_INFO) {
@@ -91,7 +92,5 @@ class Logger
         if ($this->filePath) {
             file_put_contents($this->filePath, $message . "\r\n\r\n", FILE_APPEND);
         }
-
-        return;
     }
 }
